@@ -1190,8 +1190,8 @@ function renderList() {
       <div class="hitem-left">
         <div class="hitem-badge ${item.type}">${CAT_ICONS[item.cat]||'📦'}</div>
         <div>
-          <div class="hitem-desc">${item.desc}</div>
-          <div class="hitem-meta">${item.cat} · ${fmtDate(item.date)}</div>
+          <div class="hitem-desc">${escapeHTML(item.desc)}</div>
+          <div class="hitem-meta">${escapeHTML(item.cat)} · ${fmtDate(item.date)}</div>
         </div>
       </div>
       <div class="hitem-right">
@@ -1200,6 +1200,10 @@ function renderList() {
       </div>
     </div>
   `).join('');
+}
+
+function escapeHTML(value) {
+  return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 }
 
 function fmtDate(d) {
